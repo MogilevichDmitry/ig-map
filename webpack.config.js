@@ -19,7 +19,7 @@ module.exports = {
 			test: /\.(woff|woff2|ttf|svg|eot|png)$/,
 			loader: 'file'
 		}, {
-			test: /.json$/,
+			test: /\.(json|geojson)$/,
 			loader: 'json'
 		}]
 	}
