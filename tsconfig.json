@@ -1,0 +1,17 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "module": "commonjs",
+    "inlineSourceMap": true,
+    "noImplicitAny": true,
+    "baseUrl": "./src",
+    "target": "ES6"
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "filesGlob" : [
+    "**/*.ts",
+    "!node_modules/**"
+  ]
+}
