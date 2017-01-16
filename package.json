@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/map.js",
   "scripts": {
-    "build": "webpack --progress",
+    "build": "rm -rf dist && NODE_ENV=production webpack --progress",
     "dev": "webpack-dev-server --hot --inline",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
