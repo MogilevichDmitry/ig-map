@@ -88,7 +88,15 @@ export class IGMap {
 
 	addPin(p: Point) {
 		this.pins.push(p);
+		this.requestPinsRender();
+	}
 
+	addPins(p: Array<Point>) {
+		this.pins.push(...p);
+		this.requestPinsRender();
+	}
+
+	private requestPinsRender() {
 		if (!this.pinsRenderRaf) {
 			this.pinsRenderRaf = requestAnimationFrame(() => {
 				this.renderPins();
