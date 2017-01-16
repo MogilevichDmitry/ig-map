@@ -2,7 +2,7 @@
   "name": "ig-map",
   "version": "1.0.0",
   "description": "",
-  "main": "webpack.config.js",
+  "main": "dist/map.js",
   "scripts": {
     "build": "webpack --progress",
     "dev": "webpack-dev-server --hot --inline",
@@ -12,6 +12,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/d3": "^4.4.0",
+    "@types/d3-geo": "^1.4.0",
+    "@types/geojson": "0.0.32",
     "@types/node": "^7.0.0",
     "babel-core": "^6.21.0",
     "babel-loader": "^6.2.10",

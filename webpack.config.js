@@ -4,16 +4,19 @@ const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 
-module.exports = {
+const config = {
 	context: path.join(__dirname, 'src'),
 	entry: {
-		lib: './index.ts'
+		sample: './index.ts',
+		map: './map.ts'
 	},
 	output: {
 		path: './dist',
-		filename: '[name].bundle.js'
+		filename: '[name].js',
+		library: true,
+		libraryTarget: 'commonjs2'
 	},
-	devtool: 'source-map',
+	// devtool: 'source-map',
 	module: {
 		loaders: [{
 			test: /\.css$/,
@@ -36,10 +39,13 @@ module.exports = {
 		extensions: ['', '.js', '.ts'],
 	},
 	plugins: [
-		new CopyWebpackPlugin([{
-			from: 'data/**'
-		}]),
-
 		new WebpackNotifierPlugin(),
 	]
 }
+
+if (process.env.NODE_ENV === 'production') {
+	delete config.entry.sample;
+	config.plugins.push(new webpack.optimize.UglifyJsPlugin())
+}
+
+module.exports = config;
