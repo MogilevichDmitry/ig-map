@@ -35,6 +35,21 @@ d3.select('svg').on('click', () => {
 	const x = d3.event.offsetX;
 	const y = d3.event.offsetY;
 
+	if (d3.event.shiftKey) {
+		return;
+	}
+
 	map.addPin(map.projection.invert([x, y]));
 	(window as any).map = map;
+
+	d3.selectAll('circle').on('click', removePin);
 });
+
+d3.selectAll('circle').on('click', removePin);
+
+function removePin() {
+	if (d3.event.shiftKey) {
+		console.log(map.projection.invert(d3.event.target.__data__));
+		map.removePins([map.projection.invert(d3.event.target.__data__)]);
+	}
+}

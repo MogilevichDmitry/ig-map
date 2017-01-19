@@ -13,8 +13,6 @@ const config = {
 	output: {
 		path: './dist',
 		filename: '[name].js',
-		library: true,
-		libraryTarget: 'commonjs2'
 	},
 	// devtool: 'source-map',
 	module: {
@@ -45,7 +43,11 @@ const config = {
 
 if (process.env.NODE_ENV === 'production') {
 	delete config.entry.sample;
+	config.output.library = true;
+	config.output.libraryTarget = 'commonjs2';
 	config.plugins.push(new webpack.optimize.UglifyJsPlugin())
+} else {
+	delete config.entry.map;
 }
 
 module.exports = config;

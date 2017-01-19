@@ -96,6 +96,24 @@ export class IGMap {
 		this.requestPinsRender();
 	}
 
+	removePin(pointToRemove: Point) {
+		this.pins = this.pins.filter((point: Point) => {
+			const [pX, pY] = pointToRemove;
+			const [x, y] = point;
+
+			if (x.toFixed(2) === pX.toFixed(2) && y.toFixed(2) === pY.toFixed(2)) {
+				return false;
+			}
+
+			return true;
+		});
+	}
+
+	removePins(p: Array<Point>) {
+		p.forEach((point: Point) => this.removePin(point));
+		this.requestPinsRender();
+	}
+
 	private requestPinsRender() {
 		if (!this.pinsRenderRaf) {
 			this.pinsRenderRaf = requestAnimationFrame(() => {
@@ -115,9 +133,8 @@ export class IGMap {
 	}
 
 	private renderPins() {
-		this.canvas.selectAll('circle')
-			.data(this.pins.map(this.projection))
-			.enter()
+		const selection = this.canvas.selectAll('circle').data(this.pins.map(this.projection));
+		selection.enter()
 			.append('circle')
 			.style('fill', this.options.pinConfig.color)
 			.attr('cx', (p: Point) => p[0])
@@ -126,6 +143,9 @@ export class IGMap {
 			.transition()
 			.attr('r', this.options.pinConfig.radius)
 			.style('opacity', this.options.pinConfig.opacity);
+
+		selection.exit()
+			.remove();
 
 		this.pinsRenderRaf = null;
 	}
